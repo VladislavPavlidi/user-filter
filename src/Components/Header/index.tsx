@@ -1,23 +1,26 @@
 import React from 'react'
 import ROUTES from '../../routes'
-import Link from '@mui/material/Link';
 import Box from '@mui/material/Box';
 import AppBar from '@mui/material/AppBar';
-import { makeStyles } from "@mui/material/styles";
+import { makeStyles } from '@material-ui/core/styles';
+import { Link } from 'react-router-dom';
 
-// const useStyles = makeStyles(() => ({
-//   appBar: {
-//     width: '100%',
-//     padding: 1,
-//   },
-// }));
+const useStyles = makeStyles(() => ({
+  appBar: {
+    width: '100%',
+    padding: 1,
+  },
+  link: {
+    color: '#fff',
+    marginLeft: 10,
+  }
+}));
 
 export default function Header() {
+  const classes = useStyles();
+
   return (
-    <AppBar sx={{
-      padding: 1,
-      width: '100%',
-   }}>
+    <AppBar className={classes.appBar}>
       <Box
        sx={{
           padding: 1,
@@ -25,9 +28,9 @@ export default function Header() {
           height: 20,
        }}
        >
-        <Link color="" href={ROUTES.home()}>На главную</Link>
-        <Link color="white" href={ROUTES.users()}>Пользователи</Link>
-        <Link color="white" href={ROUTES.profile()}>Профиль</Link>
+        <Link className={classes.link} to={ROUTES.home()}>На главную</Link>
+        <Link className={classes.link} to={ROUTES.users()}>Пользователи</Link>
+        <Link className={classes.link} to={ROUTES.profile()}>Профиль</Link>
       </Box>
     </AppBar>
   )
