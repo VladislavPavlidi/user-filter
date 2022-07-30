@@ -1,14 +1,14 @@
 import React from 'react'
 import ROUTES from '../../routes'
-import Box from '@mui/material/Box';
-import AppBar from '@mui/material/AppBar';
+import Box from '@material-ui/core/Box';
+import AppBar from '@material-ui/core/AppBar';
 import { makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles(() => ({
   appBar: {
     width: '100%',
-    padding: 1,
+    padding: 10,
   },
   link: {
     color: '#fff',
