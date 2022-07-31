@@ -7,10 +7,11 @@ import Login from "../../Pages/Login";
 import Profile from "../../Pages/Profile";
 import ROUTES from "../../routes";
 import PrivateRouteWrapper from "./PrivateRouteWrapper";
+import Users from "../../Pages/Users";
 
 const useStyles = makeStyles(() => ({
   main: {
-    paddingTop: 50,
+    paddingTop: 100,
   },
 }));
 
@@ -21,6 +22,7 @@ export default function Main() {
       <Routes>
         <Route path={ROUTES.home()} element={<Home />} />
         <Route path={ROUTES.counter()} element={<CounterPage />} />
+        <Route path={ROUTES.users()} element={<Users />} />
         <Route path={ROUTES.login()} element={<Login />} />
         <Route
           path={ROUTES.profile()}
