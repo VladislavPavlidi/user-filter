@@ -3,13 +3,21 @@ import { Route, Routes } from 'react-router-dom'
 import CounterPage from '../../Pages/Counter'
 import Home from '../../Pages/Home'
 import Login from '../../Pages/Login'
+import { makeStyles } from '@material-ui/core/styles';
 import Profile from '../../Pages/Profile'
 import ROUTES from '../../routes'
 import PrivateRouteWrapper from './PrivateRouteWrapper'
 
+const useStyles = makeStyles(() => ({
+    main: {
+        paddingTop: 50,
+    }
+}))
+
 export default function Main() {
+    const classes = useStyles();
     return (
-        <main>
+        <main className={classes.main}>
           <Routes>
             <Route
               path={ROUTES.home()}

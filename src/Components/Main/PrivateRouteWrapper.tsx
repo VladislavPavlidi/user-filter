@@ -8,8 +8,8 @@ interface IPrivateRoute {
 
 export default function PrivateRouteWrapper({ children }: IPrivateRoute) {
 
-  return children;
+  // return children;
   // if (true) {
   // }
-  // return <Navigate to={ROUTES.login()} replace />;
+  return <Navigate to={ROUTES.login()} replace />;
 }
