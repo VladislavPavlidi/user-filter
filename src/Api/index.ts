@@ -1,6 +1,6 @@
 // import Utilities from 'Utilities';
 // import routes from './routes';
-import { serialize } from 'object-to-formdata';
+import { serialize } from "object-to-formdata";
 
 interface ErrorInterface {
   [x: string]: any;
@@ -29,18 +29,15 @@ function serializeParams(object: object) {
   });
 }
 
-async function get(url: any, params = {}, options = {}) {
+async function get(url: any, options = {}) {
   let response: any;
   try {
-    response = await fetch(
-      `${url}`,
-      {
-        ...options,
-      }
-    );
+    response = await fetch(`${url}`, {
+      ...options,
+    });
   } catch (fetchError: any) {
-    if (fetchError.name === 'AbortError') {
-      throw new API_ERROR({ message: 'AbortError', abortError: true });
+    if (fetchError.name === "AbortError") {
+      throw new API_ERROR({ message: "AbortError", abortError: true });
     }
   }
 
@@ -55,7 +52,7 @@ async function get(url: any, params = {}, options = {}) {
   throw new API_ERROR({ message: data.error, status, data });
 }
 
-async function post(url: any, body: object, options = {}, method = 'post') {
+async function post(url: any, body: object, options = {}, method = "post") {
   const response = await fetch(url, {
     method,
     body: serializeParams(body),

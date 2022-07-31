@@ -1,15 +1,15 @@
-import React from 'react';
-import { Navigate } from 'react-router-dom';
-import ROUTES from '../../routes';
+import React from "react";
+import { Navigate } from "react-router-dom";
+import ROUTES from "../../routes";
 
 interface IPrivateRoute {
   children: JSX.Element;
 }
 
+const logged = false;
 export default function PrivateRouteWrapper({ children }: IPrivateRoute) {
-
-  // return children;
-  // if (true) {
-  // }
+  if (logged) {
+    return children;
+  }
   return <Navigate to={ROUTES.login()} replace />;
 }
