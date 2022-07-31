@@ -21,7 +21,14 @@ export default function Users() {
   return (
     <Grid container spacing={2} gap={5} justifyContent="center">
       {users.map((user: IUserCard) => (
-        <UserCard key={user?.id} />
+        <UserCard
+          id={user?.id}
+          avatar={user?.avatar}
+          email={user?.email}
+          first_name={user?.first_name}
+          last_name={user?.last_name}
+          key={user?.id}
+        />
       ))}
     </Grid>
   );

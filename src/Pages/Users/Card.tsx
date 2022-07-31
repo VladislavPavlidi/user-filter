@@ -1,3 +1,5 @@
+/* eslint-disable react/jsx-no-bind */
+/* eslint-disable import/no-cycle */
 import React from "react";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -5,6 +7,10 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import { Link } from "react-router-dom";
+import ROUTES from "../../routes";
+import { useAppDispatch } from "../../App/hooks";
+import { removeUser } from "../../Features/Users/usersSlice";
 
 export interface IUserCard {
   id: number;
@@ -14,28 +20,37 @@ export interface IUserCard {
   avatar: string;
 }
 
-export default function UserCard() {
+export default function UserCard({
+  id,
+  email,
+  first_name: firstName,
+  last_name: lastName,
+  avatar,
+}: IUserCard) {
+  const dispatch = useAppDispatch();
+  function onDelete(event: any) {
+    event.preventDefault();
+    dispatch(removeUser(id));
+  }
+
   return (
-    <Card sx={{ maxWidth: 345 }}>
-      <CardMedia
-        component="img"
-        height="140"
-        image="/static/images/cards/contemplative-reptile.jpg"
-        alt="green iguana"
-      />
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          Lizard
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          Lizards are a widespread group of squamate reptiles, with over 6,000
-          species, ranging across all continents except Antarctica
-        </Typography>
-      </CardContent>
-      <CardActions>
-        <Button size="small">Share</Button>
-        <Button size="small">Learn More</Button>
-      </CardActions>
+    <Card sx={{ width: 345 }}>
+      <Link to={ROUTES.user(id)}>
+        <CardMedia component="img" height="250" image={avatar} alt="avatar" />
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="div">
+            {firstName} {lastName}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            {email}
+          </Typography>
+        </CardContent>
+        <CardActions>
+          <Button onClick={onDelete} size="small">
+            remove
+          </Button>
+        </CardActions>
+      </Link>
     </Card>
   );
 }

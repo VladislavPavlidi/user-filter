@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 /* eslint-disable no-param-reassign */
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import Api from "../../Api";
@@ -28,9 +29,9 @@ export const usersSlice = createSlice({
       state: {
         value: IUserCard[];
       },
-      action: PayloadAction<IUserCard[]>
+      action: PayloadAction<number>
     ) => {
-      state.value = action.payload;
+      state.value = state.value.filter(({ id }) => id !== action.payload);
     },
   },
   extraReducers: (builder) => {
@@ -47,6 +48,8 @@ export const usersSlice = createSlice({
       });
   },
 });
+
+export const { removeUser } = usersSlice.actions;
 
 export const selectUsers = (state: RootState) => state.users.value;
 
