@@ -1,5 +1,5 @@
 import React from "react";
-import { Counter } from "../../features/counter/Counter";
+import { Counter } from "../../Features/counter/Counter";
 // import logo from './logo.svg';
 
 export default function CounterPage() {
