@@ -6,9 +6,12 @@ import { useNavigate } from "react-router-dom";
 import Input from "./Input";
 import Api from "../../Api";
 import ROUTES from "../../routes";
+import { setAuth } from "../../Features/Auth/authSlice";
+import { useAppDispatch } from "../../App/hooks";
 
 export default function Login() {
   const [apiError, setApiError] = useState(null);
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const methods = useForm({
     mode: "onSubmit",
@@ -27,7 +30,8 @@ export default function Login() {
   async function onSubmit(values: any) {
     if (apiError) setApiError(null);
     try {
-      await Api.get("https://reqres.in/api/login", values);
+      await Api.post("https://reqres.in/api/login", values);
+      dispatch(setAuth());
       navigate(ROUTES.profile());
     } catch (error: any) {
       if (error?.data?.error) setApiError(error?.data?.error);

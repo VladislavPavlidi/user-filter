@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import { createSlice } from "@reduxjs/toolkit";
 // eslint-disable-next-line import/no-cycle
 import { RootState } from "../../App/store";
@@ -17,10 +18,12 @@ export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    setAuth: () => {
+    setAuth: (state: { value: boolean }) => {
+      state.value = true;
       set(USER_TOKEN, true);
     },
-    removeAuth: () => {
+    removeAuth: (state: { value: boolean }) => {
+      state.value = false;
       remove(USER_TOKEN);
     },
   },
