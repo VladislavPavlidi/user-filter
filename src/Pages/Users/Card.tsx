@@ -6,6 +6,14 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
+export interface IUserCard {
+  id: number;
+  email: string;
+  first_name: string;
+  last_name: string;
+  avatar: string;
+}
+
 export default function UserCard() {
   return (
     <Card sx={{ maxWidth: 345 }}>

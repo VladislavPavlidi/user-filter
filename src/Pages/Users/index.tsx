@@ -1,13 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Grid from "@mui/material/Grid";
-import UserCard from "./Card";
+import UserCard, { IUserCard } from "./Card";
+import { useAppDispatch, useAppSelector } from "../../App/hooks";
+import { selectUsers, usersAsync } from "../../Features/Users/usersSlice";
 
 export default function Users() {
+  const dispatch = useAppDispatch();
+  const users = useAppSelector(selectUsers);
+
+  useEffect(() => {
+    console.log(users);
+  }, [users]);
+
+  useEffect(() => {
+    if (!users.length) dispatch(usersAsync());
+  }, []);
+
+  if (!users.length) return null;
+
   return (
     <Grid container spacing={2} gap={5} justifyContent="center">
-      <UserCard />
-      <UserCard />
-      <UserCard />
+      {users.map((user: IUserCard) => (
+        <UserCard key={user?.id} />
+      ))}
     </Grid>
   );
 }
