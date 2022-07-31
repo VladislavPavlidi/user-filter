@@ -39,6 +39,7 @@
     "install": "^0.13.0",
     "npm": "^8.15.1",
     "object-to-formdata": "^4.4.2",
+    "query-string": "^7.1.1",
     "react": "^17.2.0",
     "react-dom": "^17.2.0",
     "react-hook-form": "^7.34.0",

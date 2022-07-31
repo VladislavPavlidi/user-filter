@@ -2,7 +2,6 @@
 /* eslint-disable no-param-reassign */
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import Api from "../../Api";
-// eslint-disable-next-line import/no-cycle
 import { RootState } from "../../App/store";
 import { IUserCard } from "../../Pages/Users/Card";
 
