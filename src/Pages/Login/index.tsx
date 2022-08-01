@@ -30,8 +30,8 @@ export default function Login() {
   async function onSubmit(values: any) {
     if (apiError) setApiError(null);
     try {
-      await Api.post("https://reqres.in/api/login", values);
-      dispatch(setAuth());
+      const { token } = await Api.post("https://reqres.in/api/login", values);
+      dispatch(setAuth(token));
       navigate(ROUTES.profile());
     } catch (error: any) {
       if (error?.data?.error) setApiError(error?.data?.error);
