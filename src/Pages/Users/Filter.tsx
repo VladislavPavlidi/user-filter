@@ -8,7 +8,6 @@ import { useAppDispatch, useAppSelector } from "../../App/hooks";
 import { selectUserFilter, setUserFilter } from "../../Features/UserFilter";
 import ROUTES from "../../routes";
 import { toString } from "../../Utilities/params";
-// import { filterUsers } from "../../Features/Users/usersSlice";
 
 import Input from "../Login/Input";
 
@@ -31,8 +30,6 @@ export default function Filter() {
   });
 
   useEffect(() => {
-    console.log(filterParameters, "filterParameters");
-
     if (!firstMount.current) {
       navigate(`${ROUTES.users()}${toString(filterParameters)}`, {
         replace: true,
