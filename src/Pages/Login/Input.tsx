@@ -25,14 +25,13 @@ export default function Input({
       }}
       render={({ field }) => (
         <TextField
-          // helperText={errors.email?.message}
           label={label}
           type={type}
+          ref={field.ref}
           fullWidth
-          inputRef={field.ref}
+          defaultValue={field.value}
           onChange={field.onChange}
           name={field.name}
-          // error={errors.email}
           margin="dense"
         />
       )}

@@ -1,18 +1,10 @@
-import { parse } from "query-string";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { toObject } from "../Utilities/params";
 
 export default function useGetParams() {
   const { search } = useLocation();
   const firstMount = useRef(true);
-
-  function toObject(string: string) {
-    return parse(string, {
-      arrayFormat: "bracket",
-      parseNumbers: false,
-      parseBooleans: true,
-    });
-  }
 
   const params = useMemo(() => {
     return toObject(search);

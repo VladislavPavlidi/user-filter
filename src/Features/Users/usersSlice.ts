@@ -39,7 +39,7 @@ export const usersSlice = createSlice({
       },
       action: PayloadAction<any>
     ) => {
-      console.log(state, action, "filter");
+      console.log(state, action.payload, "filter");
       // state.value = state.value.filter(({ id }) => id !== action.payload);
     },
   },

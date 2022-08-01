@@ -10,9 +10,9 @@ export interface UserFilterState {
 
 const initialState: UserFilterState = {
   value: {
-    first_name: "string",
-    last_name: "string",
-    email: "string",
+    first_name: "",
+    last_name: "",
+    email: "",
   },
 };
 

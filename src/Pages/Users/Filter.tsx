@@ -1,34 +1,43 @@
 /* eslint-disable import/no-cycle */
 import { Button, Grid, Container } from "@mui/material";
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { FormProvider, useForm } from "react-hook-form";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { DevTool } from "@hookform/devtools";
 import { useAppDispatch, useAppSelector } from "../../App/hooks";
 import { selectUserFilter, setUserFilter } from "../../Features/UserFilter";
+import ROUTES from "../../routes";
+import { toString } from "../../Utilities/params";
 // import { filterUsers } from "../../Features/Users/usersSlice";
 
 import Input from "../Login/Input";
 
 export interface IFilterValues {
-  first_name: string;
-  last_name: string;
-  email: string;
+  first_name?: string;
+  last_name?: string;
+  email?: string;
 }
 
 export default function Filter() {
   const filterParameters = useAppSelector(selectUserFilter);
   const dispatch = useAppDispatch();
+  const [searchParams] = useSearchParams();
+  const firstMount = useRef(true);
+  const navigate = useNavigate();
   const methods = useForm({
     mode: "onSubmit",
     reValidateMode: "onChange",
-    defaultValues: {
-      first_name: "",
-      last_name: "",
-      email: "",
-    },
+    defaultValues: Object.fromEntries(searchParams) as unknown as IFilterValues,
   });
 
   useEffect(() => {
     console.log(filterParameters, "filterParameters");
+
+    if (!firstMount.current) {
+      navigate(`${ROUTES.users()}${toString(filterParameters)}`, {
+        replace: true,
+      });
+    }
   }, [filterParameters]);
 
   const { handleSubmit } = methods;
@@ -36,6 +45,10 @@ export default function Filter() {
   function onSubmit(values: IFilterValues) {
     dispatch(setUserFilter(values));
   }
+
+  useEffect(() => {
+    firstMount.current = false;
+  }, []);
 
   return (
     <FormProvider {...methods}>
@@ -61,6 +74,7 @@ export default function Filter() {
           </Button>
         </Container>
       </form>
+      <DevTool control={methods.control} />
     </FormProvider>
   );
 }

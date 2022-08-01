@@ -8,6 +8,7 @@ import {
   usersAsync,
 } from "../../Features/Users/usersSlice";
 import useGetParams from "../../Hooks/useGetParams";
+import { setUserFilter } from "../../Features/UserFilter";
 
 export default function Cards() {
   const dispatch = useAppDispatch();
@@ -20,6 +21,10 @@ export default function Cards() {
 
   useEffect(() => {
     if (!users.length) dispatch(usersAsync());
+  }, []);
+
+  useEffect(() => {
+    dispatch(setUserFilter(filter));
   }, []);
 
   useEffect(() => {
