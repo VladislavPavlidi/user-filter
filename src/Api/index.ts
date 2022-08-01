@@ -1,7 +1,3 @@
-// import Utilities from 'Utilities';
-// import routes from './routes';
-import { serialize } from "object-to-formdata";
-
 interface ErrorInterface {
   [x: string]: any;
   message: any;
@@ -22,17 +18,11 @@ class API_ERROR extends Error {
   }
 }
 
-function serializeParams(object: object) {
-  return serialize(object, {
-    indices: true,
-    booleansAsIntegers: true,
-  });
-}
-
 async function get(url: any, options = {}) {
   let response: any;
   try {
     response = await fetch(`${url}`, {
+      headers: { "Content-Type": "application/json" },
       ...options,
     });
   } catch (fetchError: any) {
@@ -52,10 +42,11 @@ async function get(url: any, options = {}) {
   throw new API_ERROR({ message: data.error, status, data });
 }
 
-async function post(url: any, body: object, options = {}, method = "post") {
+async function post(url: any, body: any, options = {}, method = "post") {
   const response = await fetch(url, {
     method,
-    body: serializeParams(body),
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
     ...options,
   });
   const { status } = response;
