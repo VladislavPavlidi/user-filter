@@ -1,6 +1,11 @@
+/* eslint-disable import/no-cycle */
 import { Button, Grid, Container } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
+import { useAppDispatch, useAppSelector } from "../../App/hooks";
+import { selectUserFilter, setUserFilter } from "../../Features/UserFilter";
+// import { filterUsers } from "../../Features/Users/usersSlice";
+
 import Input from "../Login/Input";
 
 export interface IFilterValues {
@@ -10,6 +15,8 @@ export interface IFilterValues {
 }
 
 export default function Filter() {
+  const filterParameters = useAppSelector(selectUserFilter);
+  const dispatch = useAppDispatch();
   const methods = useForm({
     mode: "onSubmit",
     reValidateMode: "onChange",
@@ -20,10 +27,14 @@ export default function Filter() {
     },
   });
 
+  useEffect(() => {
+    console.log(filterParameters, "filterParameters");
+  }, [filterParameters]);
+
   const { handleSubmit } = methods;
 
-  function onSubmit(values: any) {
-    console.log(values);
+  function onSubmit(values: IFilterValues) {
+    dispatch(setUserFilter(values));
   }
 
   return (
