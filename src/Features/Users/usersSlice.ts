@@ -4,6 +4,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import Api from "../../Api";
 import { RootState } from "../../App/store";
 import { IUserCard } from "../../Pages/Users/Card";
+// import { IFilterValues } from "../../Pages/Users/Filter";
 
 export interface UsersState {
   value: IUserCard[];
@@ -32,6 +33,16 @@ export const usersSlice = createSlice({
     ) => {
       state.value = state.value.filter(({ id }) => id !== action.payload);
     },
+    filterUsers: (
+      state: {
+        value: IUserCard[];
+      },
+      action: PayloadAction<any>
+    ) => {
+      console.log(state, action, "filter");
+
+      // state.value = state.value.filter(({ id }) => id !== action.payload);
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -48,7 +59,7 @@ export const usersSlice = createSlice({
   },
 });
 
-export const { removeUser } = usersSlice.actions;
+export const { removeUser, filterUsers } = usersSlice.actions;
 
 export const selectUsers = (state: RootState) => state.users.value;
 
