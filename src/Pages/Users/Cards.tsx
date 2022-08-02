@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import Grid from "@mui/material/Grid";
-import { Button, Container, Modal } from "@mui/material";
+import { Button, Container, Modal, Typography } from "@mui/material";
 import UserCard, { IUserCard } from "./Card";
 import { useAppDispatch, useAppSelector } from "../../App/hooks";
 import { selectUsers } from "../../Features/Users/usersSlice";
@@ -39,8 +39,6 @@ export default function Cards() {
     firstMount.current = false;
   }, []);
 
-  if (!users.length) return null;
-
   return (
     <>
       <Container
@@ -62,17 +60,23 @@ export default function Cards() {
         <ModalContent setCards={setCards} setOpen={setOpen} />
       </Modal>
       <Grid container gap={5} justifyContent="center">
-        {cards.map((user: IUserCard) => (
-          <UserCard
-            id={user?.id}
-            avatar={user?.avatar}
-            setCards={setCards}
-            email={user?.email}
-            first_name={user?.first_name}
-            last_name={user?.last_name}
-            key={user?.id}
-          />
-        ))}
+        {cards.length > 0 ? (
+          <>
+            {cards.map((user: IUserCard) => (
+              <UserCard
+                id={user?.id}
+                avatar={user?.avatar}
+                setCards={setCards}
+                email={user?.email}
+                first_name={user?.first_name}
+                last_name={user?.last_name}
+                key={user?.id}
+              />
+            ))}
+          </>
+        ) : (
+          <Typography>ничего не найдено</Typography>
+        )}
       </Grid>
     </>
   );

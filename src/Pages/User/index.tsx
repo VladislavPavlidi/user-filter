@@ -1,4 +1,4 @@
-import { Avatar, Grid, Typography } from "@mui/material";
+import { Avatar, CircularProgress, Grid, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Api from "../../Api";
@@ -21,8 +21,6 @@ export default function User() {
     fetchUser();
   }, []);
 
-  if (!user) return null;
-
   return (
     <Grid
       sx={{ flexDirection: "column" }}
@@ -30,17 +28,23 @@ export default function User() {
       gap={5}
       alignItems="center"
     >
-      <Avatar
-        alt="avatar"
-        src={user?.avatar}
-        sx={{ width: 100, height: 100 }}
-      />
-      <Typography gutterBottom variant="h5" component="div">
-        {user?.first_name} {user?.last_name}
-      </Typography>
-      <Typography variant="h5" color="text.secondary">
-        {user?.email}
-      </Typography>
+      {user ? (
+        <>
+          <Avatar
+            alt="avatar"
+            src={user?.avatar}
+            sx={{ width: 100, height: 100 }}
+          />
+          <Typography gutterBottom variant="h5" component="div">
+            {user?.first_name} {user?.last_name}
+          </Typography>
+          <Typography variant="h5" color="text.secondary">
+            {user?.email}
+          </Typography>
+        </>
+      ) : (
+        <CircularProgress />
+      )}
     </Grid>
   );
 }
