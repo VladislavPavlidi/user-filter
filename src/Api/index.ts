@@ -18,10 +18,11 @@ class API_ERROR extends Error {
   }
 }
 
-async function get(url: any, options = {}) {
+async function get(url: any, options = {}, method = "get") {
   let response: any;
   try {
     response = await fetch(`${url}`, {
+      method,
       headers: { "Content-Type": "application/json" },
       ...options,
     });
@@ -32,8 +33,12 @@ async function get(url: any, options = {}) {
   }
 
   if (response?.ok) {
-    const data = await response.json();
-    return data;
+    try {
+      const data = await response?.json();
+      return data;
+    } catch {
+      return {};
+    }
   }
 
   const { status }: any = response;

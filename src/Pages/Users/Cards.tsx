@@ -28,7 +28,7 @@ export default function Cards() {
       setCards(
         users.filter((user: any) =>
           Object.entries(filter).every(([key, value]: any) =>
-            // user[key].toLowerCase().include(value.toLowerCase()) // second filter pattern
+            // user[key].toLowerCase().include(value.toLowerCase()) // second filter option
             user[key].toLowerCase().startsWith(value.toLowerCase())
           )
         )

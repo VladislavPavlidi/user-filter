@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-no-bind */
 /* eslint-disable import/no-cycle */
-import React from "react";
+import React, { useState } from "react";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -10,7 +10,7 @@ import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom";
 import ROUTES from "../../routes";
 import { useAppDispatch } from "../../App/hooks";
-import { removeUser } from "../../Features/Users/usersSlice";
+import { deleteUserAsync } from "../../Features/Users/usersSlice";
 
 export interface IUserCard {
   id: number;
@@ -27,10 +27,12 @@ export default function UserCard({
   last_name: lastName,
   avatar,
 }: IUserCard) {
+  const [disabled, setDisabled] = useState<boolean>(false);
   const dispatch = useAppDispatch();
-  function onDelete(event: any) {
+  async function onDelete(event: any) {
     event.preventDefault();
-    dispatch(removeUser(id));
+    setDisabled(true);
+    await dispatch(deleteUserAsync(id));
   }
 
   return (
@@ -46,7 +48,7 @@ export default function UserCard({
           </Typography>
         </CardContent>
         <CardActions>
-          <Button onClick={onDelete} size="small">
+          <Button disabled={disabled} onClick={onDelete} size="small">
             remove
           </Button>
         </CardActions>
