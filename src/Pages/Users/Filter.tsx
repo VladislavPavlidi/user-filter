@@ -1,6 +1,6 @@
 /* eslint-disable import/no-cycle */
-import { Button, Grid, Container, Modal } from "@mui/material";
-import React, { useEffect, useRef, useState } from "react";
+import { Button, Grid, Container } from "@mui/material";
+import React, { useEffect, useRef } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { DevTool } from "@hookform/devtools";
@@ -10,7 +10,6 @@ import ROUTES from "../../routes";
 import { toString } from "../../Utilities/params";
 
 import Input from "../Login/Input";
-import ModalContent from "./ModalContent";
 
 export interface IFilterValues {
   first_name?: string;
@@ -21,7 +20,6 @@ export interface IFilterValues {
 export default function Filter() {
   const filterParameters = useAppSelector(selectUserFilter);
   const dispatch = useAppDispatch();
-  const [open, setOpen] = useState<boolean>(false);
   const [searchParams] = useSearchParams();
   const firstMount = useRef(true);
   const navigate = useNavigate();
@@ -54,7 +52,7 @@ export default function Filter() {
       <form onSubmit={handleSubmit(onSubmit)}>
         <Container
           sx={{
-            marginBottom: 5,
+            marginBottom: 1,
           }}
         >
           <Grid container direction="row" gap={5}>
@@ -72,18 +70,8 @@ export default function Filter() {
             <Button type="submit" variant="contained" color="primary">
               Применить фильтр
             </Button>
-            <Button
-              onClick={() => setOpen(true)}
-              variant="contained"
-              color="primary"
-            >
-              Добавить пользователя
-            </Button>
           </Grid>
         </Container>
-        <Modal open={open} onClose={() => setOpen(false)}>
-          <ModalContent />
-        </Modal>
       </form>
       <DevTool control={methods.control} />
     </FormProvider>
