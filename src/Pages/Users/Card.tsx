@@ -43,7 +43,12 @@ export default function UserCard({
   return (
     <Card sx={{ width: 345 }}>
       <Link to={ROUTES.user(id)}>
-        <CardMedia component="img" height="250" image={avatar} alt="avatar" />
+        <CardMedia
+          component="img"
+          height="250"
+          image={avatar || "https://picsum.photos/200"}
+          alt="avatar"
+        />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
             {firstName} {lastName}
