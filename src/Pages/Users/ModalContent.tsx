@@ -7,6 +7,9 @@ import React, { forwardRef, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import Input from "../Login/Input";
 import Api from "../../Api";
+import { useAppDispatch } from "../../App/hooks";
+import { addUser } from "../../Features/Users/usersSlice";
+import useGetParams from "../../Hooks/useGetParams";
 
 const useStyles = makeStyles(() => ({
   modal: {
@@ -24,8 +27,10 @@ function ModalContent(
   { setCards, setOpen }: any,
   ref: React.Ref<HTMLDivElement>
 ) {
+  const dispatch = useAppDispatch();
   const [apiError, setApiError] = useState(null);
   const classes = useStyles();
+  const filter = useGetParams();
   const methods = useForm({
     mode: "onSubmit",
     reValidateMode: "onChange",
@@ -44,7 +49,15 @@ function ModalContent(
     if (apiError) setApiError(null);
     try {
       const response = await Api.post("https://reqres.in/api/users", values);
-      setCards((prev: any) => [...prev, response]);
+      dispatch(addUser(response));
+      setCards((prev: any) =>
+        [...prev, response].filter((user: any) =>
+          Object.entries(filter).every(([key, value]: any) =>
+            // user[key].toLowerCase().include(value.toLowerCase()) // second filter option
+            user[key].toLowerCase().startsWith(value.toLowerCase())
+          )
+        )
+      );
       setOpen(false);
     } catch (error: any) {
       if (error?.data?.error) setApiError(error?.data?.error);

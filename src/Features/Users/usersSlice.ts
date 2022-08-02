@@ -51,6 +51,14 @@ export const usersSlice = createSlice({
     ) => {
       state.value = state.value.filter(({ id }) => id !== action.payload);
     },
+    addUser: (
+      state: {
+        value: IUserCard[];
+      },
+      action: PayloadAction<IUserCard>
+    ) => {
+      state.value = [...state.value, action.payload];
+    },
     filterUsers: (
       state: {
         value: IUserCard[];
@@ -81,7 +89,6 @@ export const usersSlice = createSlice({
       })
       .addCase(deleteUserAsync.fulfilled, (state, action) => {
         state.status = "idle";
-        console.log(action.payload, "dasdasdas");
         state.value = state.value.filter(({ id }) => id !== action.payload);
       })
       .addCase(deleteUserAsync.rejected, (state) => {
@@ -90,7 +97,7 @@ export const usersSlice = createSlice({
   },
 });
 
-export const { removeUser, filterUsers } = usersSlice.actions;
+export const { removeUser, filterUsers, addUser } = usersSlice.actions;
 
 export const selectUsers = (state: RootState) => state.users.value;
 
