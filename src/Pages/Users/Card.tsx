@@ -18,12 +18,14 @@ export interface IUserCard {
   first_name: string;
   last_name: string;
   avatar: string;
+  setCards?: any;
 }
 
 export default function UserCard({
   id,
   email,
   first_name: firstName,
+  setCards,
   last_name: lastName,
   avatar,
 }: IUserCard) {
@@ -33,6 +35,9 @@ export default function UserCard({
     event.preventDefault();
     setDisabled(true);
     await dispatch(deleteUserAsync(id));
+    setCards((prev: IUserCard[]) =>
+      prev.filter(({ id: cardId }: IUserCard) => cardId !== id)
+    );
   }
 
   return (

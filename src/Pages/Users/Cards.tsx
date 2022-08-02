@@ -14,12 +14,6 @@ export default function Cards() {
   const filter = useGetParams();
 
   useEffect(() => {
-    if (!firstMount.current) {
-      setCards(users);
-    }
-  }, [users]);
-
-  useEffect(() => {
     dispatch(setUserFilter(filter));
   }, []);
 
@@ -50,6 +44,7 @@ export default function Cards() {
         <UserCard
           id={user?.id}
           avatar={user?.avatar}
+          setCards={setCards}
           email={user?.email}
           first_name={user?.first_name}
           last_name={user?.last_name}
