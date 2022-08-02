@@ -67,7 +67,7 @@ function ModalContent(
   return (
     <Box ref={ref} className={classes.modal}>
       <Typography id="modal-modal-title" variant="h6" component="h2">
-        Text in a modal
+        Создать пользователя
       </Typography>
 
       <FormProvider {...methods}>
