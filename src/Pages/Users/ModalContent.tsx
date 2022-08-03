@@ -79,9 +79,9 @@ function ModalContent(
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Container maxWidth="xs">
-            <Input name="first_name" label="Имя" />
-            <Input name="last_name" label="Фамилия" />
-            <Input name="email" label="Email" />
+            <Input required name="first_name" label="Имя" />
+            <Input required name="last_name" label="Фамилия" />
+            <Input required type="email" name="email" label="Email" />
             <Button
               type="submit"
               disabled={isValid && isSubmitting}

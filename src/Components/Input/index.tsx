@@ -21,19 +21,26 @@ export default function Input({
       control={control}
       name={name}
       rules={{
-        required,
+        required: required ? "Обязательное поле" : false,
       }}
-      render={({ field }) => (
-        <TextField
-          label={label}
-          type={type}
-          ref={field.ref}
-          fullWidth
-          defaultValue={field.value}
-          onChange={field.onChange}
-          name={field.name}
-          margin="dense"
-        />
+      render={({ field, fieldState }) => (
+        <>
+          <TextField
+            label={label}
+            type={type}
+            ref={field.ref}
+            fullWidth
+            defaultValue={field.value}
+            onChange={field.onChange}
+            name={field.name}
+            margin="dense"
+          />
+          {fieldState?.error && (
+            <p style={{ color: "red", margin: "5px 0" }}>
+              {fieldState?.error?.message}
+            </p>
+          )}
+        </>
       )}
     />
   );
