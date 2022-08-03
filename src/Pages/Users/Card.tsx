@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-no-bind */
 /* eslint-disable import/no-cycle */
-import React, { useState } from "react";
+import React, { MouseEvent, useState } from "react";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -31,7 +31,7 @@ export default function UserCard({
 }: IUserCard) {
   const [disabled, setDisabled] = useState<boolean>(false);
   const dispatch = useAppDispatch();
-  async function onDelete(event: any) {
+  async function onDelete(event: MouseEvent<HTMLElement>) {
     event.preventDefault();
     setDisabled(true);
     await dispatch(deleteUserAsync(id));

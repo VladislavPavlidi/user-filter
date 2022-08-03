@@ -2,9 +2,8 @@
 /* eslint-disable import/no-cycle */
 import { Box, Button, Container, Typography } from "@mui/material";
 import { makeStyles } from "@material-ui/core/styles";
-// import React, { useState } from "react";
 import React, { forwardRef, useState } from "react";
-import { FormProvider, useForm } from "react-hook-form";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import Api from "../../Api";
 import { useAppDispatch } from "../../App/hooks";
 import { addUser } from "../../Features/Users/usersSlice";
@@ -23,6 +22,12 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
+type FormValues = {
+  email: string;
+  first_name: string;
+  last_name: string;
+};
+
 function ModalContent(
   { setCards, setOpen }: any,
   ref: React.Ref<HTMLDivElement>
@@ -35,8 +40,9 @@ function ModalContent(
     mode: "onSubmit",
     reValidateMode: "onChange",
     defaultValues: {
+      first_name: "",
+      last_name: "",
       email: "",
-      password: "",
     },
   });
 
@@ -45,7 +51,7 @@ function ModalContent(
     formState: { isValid, isSubmitting },
   } = methods;
 
-  async function onSubmit(values: any) {
+  const onSubmit: SubmitHandler<FormValues> = async (values) => {
     if (apiError) setApiError(null);
     try {
       const response = await Api.post("https://reqres.in/api/users", values);
@@ -62,7 +68,7 @@ function ModalContent(
     } catch (error: any) {
       if (error?.data?.error) setApiError(error?.data?.error);
     }
-  }
+  };
 
   return (
     <Box ref={ref} className={classes.modal}>

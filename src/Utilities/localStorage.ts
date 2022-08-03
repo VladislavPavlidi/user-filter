@@ -1,10 +1,9 @@
-export function set(key: string, value: any) {
+export function set(key: string, value: string) {
   let tmpValue = value;
   if (typeof value === "object") {
     tmpValue = JSON.stringify(value);
   }
   localStorage.setItem(key, tmpValue);
-  window.dispatchEvent(new Event("storage"));
 }
 
 export function get(key: string) {
@@ -24,5 +23,4 @@ export function get(key: string) {
 
 export function remove(key: string) {
   localStorage.removeItem(key);
-  window.dispatchEvent(new Event("storage"));
 }

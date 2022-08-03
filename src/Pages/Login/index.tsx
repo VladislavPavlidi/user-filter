@@ -1,13 +1,18 @@
 import React, { useState } from "react";
 import Container from "@material-ui/core/Container";
 import Button from "@material-ui/core/Button";
-import { FormProvider, useForm } from "react-hook-form";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import Input from "../../Components/Input";
 import Api from "../../Api";
 import ROUTES from "../../routes";
 import { setAuth } from "../../Features/Auth/authSlice";
 import { useAppDispatch } from "../../App/hooks";
+
+type FormValues = {
+  email: string;
+  password: string;
+};
 
 export default function Login() {
   const [apiError, setApiError] = useState(null);
@@ -27,7 +32,7 @@ export default function Login() {
     formState: { isValid, isSubmitting },
   } = methods;
 
-  async function onSubmit(values: any) {
+  const onSubmit: SubmitHandler<FormValues> = async (values) => {
     if (apiError) setApiError(null);
     try {
       const { token } = await Api.post("https://reqres.in/api/login", values);
@@ -36,7 +41,7 @@ export default function Login() {
     } catch (error: any) {
       if (error?.data?.error) setApiError(error?.data?.error);
     }
-  }
+  };
 
   return (
     <FormProvider {...methods}>

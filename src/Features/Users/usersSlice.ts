@@ -63,7 +63,7 @@ export const usersSlice = createSlice({
       state: {
         value: IUserCard[];
       },
-      action: PayloadAction<any>
+      action: PayloadAction<IUserCard>
     ) => {
       state.value = state.value.filter((user: any) =>
         Object.entries(action.payload).every(([key, value]) =>
