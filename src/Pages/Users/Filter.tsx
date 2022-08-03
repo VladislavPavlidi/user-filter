@@ -8,8 +8,7 @@ import { useAppDispatch, useAppSelector } from "../../App/hooks";
 import { selectUserFilter, setUserFilter } from "../../Features/UserFilter";
 import ROUTES from "../../routes";
 import { toString } from "../../Utilities/params";
-
-import Input from "../Login/Input";
+import Input from "../../Components/Input";
 
 export interface IFilterValues {
   first_name?: string;

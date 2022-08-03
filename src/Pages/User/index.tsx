@@ -1,4 +1,10 @@
-import { Avatar, CircularProgress, Grid, Typography } from "@mui/material";
+import {
+  Avatar,
+  CircularProgress,
+  Grid,
+  Link,
+  Typography,
+} from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Api from "../../Api";
@@ -38,9 +44,13 @@ export default function User() {
           <Typography gutterBottom variant="h5" component="div">
             {user?.first_name} {user?.last_name}
           </Typography>
-          <Typography variant="h5" color="text.secondary">
+          <Link
+            href={`mailto:${user?.email}`}
+            variant="h5"
+            color="text.secondary"
+          >
             {user?.email}
-          </Typography>
+          </Link>
         </>
       ) : (
         <CircularProgress />

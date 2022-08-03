@@ -3,7 +3,7 @@ import Container from "@material-ui/core/Container";
 import Button from "@material-ui/core/Button";
 import { FormProvider, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import Input from "./Input";
+import Input from "../../Components/Input";
 import Api from "../../Api";
 import ROUTES from "../../routes";
 import { setAuth } from "../../Features/Auth/authSlice";

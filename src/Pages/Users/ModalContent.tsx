@@ -5,11 +5,11 @@ import { makeStyles } from "@material-ui/core/styles";
 // import React, { useState } from "react";
 import React, { forwardRef, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import Input from "../Login/Input";
 import Api from "../../Api";
 import { useAppDispatch } from "../../App/hooks";
 import { addUser } from "../../Features/Users/usersSlice";
 import useGetParams from "../../Hooks/useGetParams";
+import Input from "../../Components/Input";
 
 const useStyles = makeStyles(() => ({
   modal: {
