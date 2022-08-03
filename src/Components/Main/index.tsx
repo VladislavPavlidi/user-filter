@@ -1,7 +1,6 @@
 import React from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
-import CounterPage from "../../Pages/Counter";
 import Home from "../../Pages/Home";
 import Login from "../../Pages/Login";
 import Profile from "../../Pages/Profile";
@@ -22,7 +21,6 @@ export default function Main() {
     <main className={classes.main}>
       <Routes>
         <Route path={ROUTES.home()} element={<Home />} />
-        <Route path={ROUTES.counter()} element={<CounterPage />} />
         <Route path={ROUTES.users()} element={<Users />} />
         <Route path={ROUTES.user()} element={<User />} />
         <Route path={ROUTES.login()} element={<Login />} />
