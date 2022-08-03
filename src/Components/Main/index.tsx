@@ -7,6 +7,7 @@ import Profile from "../../Pages/Profile";
 import User from "../../Pages/User";
 import ROUTES from "../../routes";
 import PrivateRouteWrapper from "./PrivateRouteWrapper";
+import PublicRouteWrapper from "./PublicRouteWrapper";
 import Users from "../../Pages/Users";
 
 const useStyles = makeStyles(() => ({
@@ -23,7 +24,14 @@ export default function Main() {
         <Route path={ROUTES.home()} element={<Home />} />
         <Route path={ROUTES.users()} element={<Users />} />
         <Route path={ROUTES.user()} element={<User />} />
-        <Route path={ROUTES.login()} element={<Login />} />
+        <Route
+          path={ROUTES.login()}
+          element={
+            <PublicRouteWrapper>
+              <Login />
+            </PublicRouteWrapper>
+          }
+        />
         <Route
           path={ROUTES.profile()}
           element={
