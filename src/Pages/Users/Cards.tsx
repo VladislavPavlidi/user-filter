@@ -7,27 +7,38 @@ import { selectUsers } from "../../Features/Users/usersSlice";
 import useGetParams from "../../Hooks/useGetParams";
 import { setUserFilter } from "../../Features/UserFilter";
 import ModalContent from "./ModalContent";
+import { IFilterValues } from "./Filter";
+
+type Entries<T> = {
+  [K in keyof T]: [K, T[K]];
+}[keyof T][];
 
 export default function Cards() {
   const dispatch = useAppDispatch();
   const users = useAppSelector(selectUsers);
   const firstMount = useRef(true);
   const [open, setOpen] = useState<boolean>(false);
-  const [cards, setCards] = useState<IUserCard[]>(users);
-  const filter = useGetParams();
+  const [cards, setCards] = useState<IUserCard[]>(users || []);
+  const filter: IFilterValues = useGetParams();
 
   useEffect(() => {
     dispatch(setUserFilter(filter));
   }, []);
 
   useEffect(() => {
-    if (Object.values(filter).length > 0) {
+    const filterArray = Object.entries(filter) as Entries<typeof filter>;
+    if (filterArray.length > 0) {
       setCards(
-        users.filter((user: any) =>
-          Object.entries(filter).every(([key, value]: any) =>
+        users.filter((user: IUserCard) =>
+          filterArray.every((value) => {
             // user[key].toLowerCase().include(value.toLowerCase()) // second filter option
-            user[key].toLowerCase().startsWith(value.toLowerCase())
-          )
+            if (value) {
+              return user[value[0]]
+                .toLowerCase()
+                .startsWith((value[1] || "").toLowerCase());
+            }
+            return false;
+          })
         )
       );
     } else {
